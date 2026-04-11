@@ -14,5 +14,13 @@ public class Monitor {
     private boolean paused = false;
     private boolean stopped = false;
 
+    public synchronized void waitForTurn(int myId) throws InterruptedException {
+        while (Id > currentRunner || paused || stopped) {
+            if (stopped) {
+                throw new InterruptedException("Fermato");
+            }
+            wait();
+        }
+    }
     
 }
