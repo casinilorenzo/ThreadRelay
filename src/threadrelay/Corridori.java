@@ -9,6 +9,7 @@ package threadrelay;
  * @author loren
  */
 public class Corridori implements Runnable {
+
     private final int id;
     private final Monitor monitor;
     private final int[] contatori;
@@ -16,10 +17,10 @@ public class Corridori implements Runnable {
     private boolean finito = false;
 
     public Corridori(int id, Monitor monitor, int[] contatori, int velocita) {
-        this.id       = id;
-        this.monitor  = monitor;
+        this.id = id;
+        this.monitor = monitor;
         this.contatori = contatori;
-        this.velocita  = velocita;
+        this.velocita = velocita;
     }
 
     public int getVelocita() {
@@ -38,5 +39,27 @@ public class Corridori implements Runnable {
         this.finito = finito;
     }
     
-}
+    public int getId() {
+        return id;
+    }
+    
+    @Override
+    public void run() {
+        try {
+            monitor.waitForTurn(id);
+            for (int i = 0; i <= 99; i++) {
+                monitor.waitForTurn(id);
+                contatori[id - 1] = i;
+                if (i == 90 && id < 4) {
+                    monitor.passaTestimone(id + 1);
+                }
 
+                Thread.sleep(velocita);
+            }
+            finito = true;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+}
