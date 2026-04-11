@@ -22,5 +22,21 @@ public class Corridori implements Runnable {
         this.velocita  = velocita;
     }
 
+    public int getVelocita() {
+        return velocita;
+    }
+
+    public void setVelocita(int velocita) {
+        this.velocita = velocita;
+    }
+
+    public boolean isFinito() {
+        return finito;
+    }
+
+    public void setFinito(boolean finito) {
+        this.finito = finito;
+    }
+    
 }
 
