@@ -8,6 +8,7 @@ package threadrelay;
  *
  * @author loren
  */
+
 public class ThreadsGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ThreadsGUI.class.getName());
@@ -20,6 +21,10 @@ public class ThreadsGUI extends javax.swing.JFrame {
      */
     public ThreadsGUI() {
         initComponents();
+        private Monitor monitor;
+        private Corridori[] c = new Corridori[4];
+        private Thread[] threads = new Thread[4];
+        private int[] contatori = new int[4];
     }
 
     /**
