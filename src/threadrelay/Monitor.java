@@ -22,6 +22,7 @@ public class Monitor {
             wait();
         }
     }
+    
     public synchronized void sospendi() {
         paused = true;
     }
@@ -39,4 +40,10 @@ public class Monitor {
     public synchronized boolean isStopped() {
         return stopped;
     }
+    
+    public synchronized void passaTestimone(int nextId) {
+        currentRunner = nextId;
+        notifyAll();
+    }
+
 }
