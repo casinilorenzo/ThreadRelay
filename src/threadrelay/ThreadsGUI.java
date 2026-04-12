@@ -27,6 +27,11 @@ public class ThreadsGUI extends javax.swing.JFrame {
      */
     public ThreadsGUI() {
         initComponents();
+        for (javax.swing.JProgressBar bar : new javax.swing.JProgressBar[]{
+            jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4}) {
+            bar.setStringPainted(true);
+            bar.setFont(new java.awt.Font("Segoe UI Emoji", java.awt.Font.PLAIN, 20));
+        }
         BtnPausa.setEnabled(false);
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
