@@ -3,25 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package threadrelay;
+
 import javax.swing.Timer;
 
 /**
  *
  * @author loren
  */
-
 public class ThreadsGUI extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ThreadsGUI.class.getName());
-    private static final int SLOW    = 80;
+    private static final int SLOW = 80;
     private static final int REGULAR = 40;
-    private static final int FAST    = 10;
+    private static final int FAST = 10;
     private Monitor monitor;
     private Corridori[] c = new Corridori[4];
     private Thread[] threads = new Thread[4];
     private int[] contatori = new int[4];
     Timer timer = new Timer(30, e -> aggiornaGUI());
-        
+
     /**
      * Creates new form ThreadsGUI
      */
@@ -31,7 +31,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -235,9 +235,9 @@ public class ThreadsGUI extends javax.swing.JFrame {
         monitor = new Monitor();
         for (int i = 0; i < 4; i++) {
             c[i] = new Corridori(i + 1, monitor, contatori, ms);
-            threads[i] = new Thread(c[i], "Runner-" + (i+1));
+            threads[i] = new Thread(c[i], "Runner-" + (i + 1));
         }
-        for (Thread t : threads){
+        for (Thread t : threads) {
             t.start();
         }
         timer.start();
@@ -257,7 +257,9 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private void BtnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRiprendiActionPerformed
         // TODO add your handling code here:
         int ms = velocitaMs();
-        for (Corridori r : c) r.setVelocita(ms);
+        for (Corridori r : c) {
+            r.setVelocita(ms);
+        }
         monitor.riprendi();
         BtnRiprendi.setEnabled(false);
         BtnPausa.setEnabled(true);
@@ -266,15 +268,22 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private void BtnFermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFermaActionPerformed
         // TODO add your handling code here:
         monitor.ferma();
-        if (timer != null) timer.stop();
+        if (timer != null) {
+            timer.stop();
+        }
         resetBottoni();
     }//GEN-LAST:event_BtnFermaActionPerformed
 
     private void aggiornaGUI() {
         boolean tuttiFiniti = true;
+        javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
+        javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
+
         for (int i = 0; i < 4; i++) {
             int val = contatori[i];
-            if (!c[i].isFinito()){
+            bars[i].setValue(val);
+            labels[i].setText(String.valueOf(val));
+            if (!c[i].isFinito()) {
                 tuttiFiniti = false;
             }
         }
@@ -283,6 +292,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
             resetBottoni();
         }
     }
+
     private void resetBottoni() {
         CmbVelocita.setEnabled(true);
         BtnAvvia.setEnabled(true);
@@ -290,14 +300,18 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
     }
+
     private int velocitaMs() {
         return switch (CmbVelocita.getSelectedIndex()) {
-            case 0 -> SLOW;
-            case 2 -> FAST;
-            default -> REGULAR;
+            case 0 ->
+                SLOW;
+            case 2 ->
+                FAST;
+            default ->
+                REGULAR;
         };
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAvvia;
     private javax.swing.JButton BtnFerma;
