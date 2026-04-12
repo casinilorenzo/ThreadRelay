@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package threadrelay;
+import javax.swing.Timer;
 
 /**
  *
@@ -15,18 +16,20 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private static final int SLOW    = 80;
     private static final int REGULAR = 40;
     private static final int FAST    = 10;
-
+    private Monitor monitor;
+    private Corridori[] c = new Corridori[4];
+    private Thread[] threads = new Thread[4];
+    private int[] contatori = new int[4];
     /**
      * Creates new form ThreadsGUI
      */
     public ThreadsGUI() {
         initComponents();
-        private Monitor monitor;
-        private Corridori[] c = new Corridori[4];
-        private Thread[] threads = new Thread[4];
-        private int[] contatori = new int[4];
+        BtnPausa.setEnabled(false);
+        BtnRiprendi.setEnabled(false);
+        BtnFerma.setEnabled(false);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,7 +44,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnPausa = new javax.swing.JButton();
         BtnRiprendi = new javax.swing.JButton();
         BtnFerma = new javax.swing.JButton();
-        SpnVelocita = new javax.swing.JSpinner();
+        CmbVelocita = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jProgressBar3 = new javax.swing.JProgressBar();
@@ -60,6 +63,11 @@ public class ThreadsGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         BtnAvvia.setText("Avvia");
+        BtnAvvia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAvviaActionPerformed(evt);
+            }
+        });
 
         BtnPausa.setText("Pausa");
 
@@ -67,14 +75,16 @@ public class ThreadsGUI extends javax.swing.JFrame {
 
         BtnFerma.setText("Ferma");
 
+        CmbVelocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(SpnVelocita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108)
+                .addGap(69, 69, 69)
+                .addComponent(CmbVelocita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121)
                 .addComponent(BtnAvvia)
                 .addGap(18, 18, 18)
                 .addComponent(BtnPausa)
@@ -82,19 +92,19 @@ public class ThreadsGUI extends javax.swing.JFrame {
                 .addComponent(BtnRiprendi)
                 .addGap(18, 18, 18)
                 .addComponent(BtnFerma)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SpnVelocita, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnAvvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnPausa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnRiprendi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnFerma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnFerma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CmbVelocita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -202,17 +212,37 @@ public class ThreadsGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAvviaActionPerformed
+        // TODO add your handling code here:
+        int ms = velocitaMs();
+        monitor = new Monitor();
+        for (int i = 0; i < 4; i++) {
+            c[i] = new Corridori(i + 1, monitor, contatori, ms);
+            threads[i] = new Thread(c[i], "Runner-" + (i+1));
+        }
+        for (Thread t : threads){
+            t.start();
+        }
+        Timer timer = new Timer(30, e -> aggiornaGUI());
+        timer.start();
+
+        CmbVelocita.setEnabled(false);
+        BtnAvvia.setEnabled(false);
+        BtnPausa.setEnabled(true);
+        BtnFerma.setEnabled(true);
+    }//GEN-LAST:event_BtnAvviaActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAvvia;
     private javax.swing.JButton BtnFerma;
     private javax.swing.JButton BtnPausa;
     private javax.swing.JButton BtnRiprendi;
+    private javax.swing.JComboBox<String> CmbVelocita;
     private javax.swing.JLabel LblContatore1;
     private javax.swing.JLabel LblContatore2;
     private javax.swing.JLabel LblContatore3;
     private javax.swing.JLabel LblContatore4;
-    private javax.swing.JSpinner SpnVelocita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -225,4 +255,12 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JProgressBar jProgressBar4;
     // End of variables declaration//GEN-END:variables
+
+    private int velocitaMs() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private Timer aggiornaGUI() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
