@@ -295,6 +295,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         if (timer != null) {
             timer.stop();
         }
+        resetGUI();
         resetBottoni();
     }//GEN-LAST:event_BtnFermaActionPerformed
 
@@ -317,7 +318,16 @@ public class ThreadsGUI extends javax.swing.JFrame {
             resetBottoni();
         }
     }
-
+    private void resetGUI() {
+    javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
+    javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
+    for (int i = 0; i < 4; i++) {
+        contatori[i] = 0;
+        bars[i].setValue(0);
+        bars[i].setString("🏃 0%");
+        labels[i].setText("0");
+    }
+}
     private void resetBottoni() {
         CmbVelocita.setEnabled(true);
         BtnAvvia.setEnabled(true);
