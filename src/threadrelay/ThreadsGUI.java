@@ -20,6 +20,8 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private Corridori[] c = new Corridori[4];
     private Thread[] threads = new Thread[4];
     private int[] contatori = new int[4];
+    Timer timer = new Timer(30, e -> aggiornaGUI());
+        
     /**
      * Creates new form ThreadsGUI
      */
@@ -84,6 +86,11 @@ public class ThreadsGUI extends javax.swing.JFrame {
         });
 
         BtnFerma.setText("Ferma");
+        BtnFerma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnFermaActionPerformed(evt);
+            }
+        });
 
         CmbVelocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -233,7 +240,6 @@ public class ThreadsGUI extends javax.swing.JFrame {
         for (Thread t : threads){
             t.start();
         }
-        Timer timer = new Timer(30, e -> aggiornaGUI());
         timer.start();
         CmbVelocita.setEnabled(false);
         BtnAvvia.setEnabled(false);
@@ -256,6 +262,13 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnRiprendi.setEnabled(false);
         BtnPausa.setEnabled(true);
     }//GEN-LAST:event_BtnRiprendiActionPerformed
+
+    private void BtnFermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFermaActionPerformed
+        // TODO add your handling code here:
+        monitor.ferma();
+        if (timer != null) timer.stop();
+        resetBottoni();
+    }//GEN-LAST:event_BtnFermaActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
