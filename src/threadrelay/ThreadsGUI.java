@@ -274,12 +274,8 @@ public class ThreadsGUI extends javax.swing.JFrame {
         boolean tuttiFiniti = true;
         for (int i = 0; i < 4; i++) {
             int val = contatori[i];
-            if (!c[i].isFinito()) tuttiFiniti = false;
-
-            if (c[i].isFinito()) {
-                infoLabel[i].setText("Runner " + (i+1) + " — Fine");
-            } else {
-                infoLabel[i].setText("Runner " + (i+1) + " — " + val);
+            if (!c[i].isFinito()){
+                tuttiFiniti = false;
             }
         }
         if (tuttiFiniti) {
@@ -324,12 +320,3 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JProgressBar jProgressBar4;
     // End of variables declaration//GEN-END:variables
-
-    private int velocitaMs() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private Timer aggiornaGUI() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-}
