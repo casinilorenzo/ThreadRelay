@@ -255,6 +255,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
 
     private void BtnAvviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAvviaActionPerformed
         // TODO add your handling code here:
+        resetGUI();
         int ms = velocitaMs();
         monitor = new Monitor();
         for (int i = 0; i < 4; i++) {
