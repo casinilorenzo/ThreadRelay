@@ -46,7 +46,6 @@ public class Corridori implements Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep((id - 1) * 50L);
             monitor.waitForTurn(id);
             for (int i = 0; i <= 100; i++) {
                 monitor.checkPaused();

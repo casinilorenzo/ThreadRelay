@@ -262,9 +262,16 @@ public class ThreadsGUI extends javax.swing.JFrame {
             c[i] = new Corridori(i + 1, monitor, contatori, ms);
             threads[i] = new Thread(c[i], "Runner-" + (i + 1));
         }
-        for (Thread t : threads) {
-            t.start();
+        new Thread(() -> {
+        try {
+            for (int i = 0; i < 4; i++) {
+                threads[i].start();
+                Thread.sleep(200);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+    }).start();
         timer.start();
         CmbVelocita.setEnabled(false);
         BtnAvvia.setEnabled(false);
