@@ -39,12 +39,12 @@ public class ThreadsGUI extends javax.swing.JFrame {
         ));
         CmbVelocita.setSelectedIndex(1);
         jProgressBar1.setMaximum(100);
-        jProgressBar3.setMaximum(100);
         jProgressBar2.setMaximum(100);
+        jProgressBar3.setMaximum(100);
         jProgressBar4.setMaximum(100);
         jProgressBar1.setForeground(new java.awt.Color(220, 50, 50));
-        jProgressBar3.setForeground(new java.awt.Color(50, 150, 220));
-        jProgressBar2.setForeground(new java.awt.Color(50, 200, 80));
+        jProgressBar2.setForeground(new java.awt.Color(50, 150, 220));
+        jProgressBar3.setForeground(new java.awt.Color(50, 200, 80));
         jProgressBar4.setForeground(new java.awt.Color(255, 165, 0));
         for (javax.swing.JProgressBar bar : new javax.swing.JProgressBar[]{
             jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4}) {
@@ -309,7 +309,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
 
     private void aggiornaGUI() {
         boolean tuttiFiniti = true;
-        javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4};
+        javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
         javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
 
         for (int i = 0; i < 4; i++) {
@@ -327,7 +327,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         }
     }
     private void resetGUI() {
-    javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4};
+    javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
     javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
     for (int i = 0; i < 4; i++) {
         contatori[i] = 0;
