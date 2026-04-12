@@ -287,6 +287,13 @@ public class ThreadsGUI extends javax.swing.JFrame {
             resetBottoni();
         }
     }
+    private void resetBottoni() {
+        CmbVelocita.setEnabled(true);
+        BtnAvvia.setEnabled(true);
+        BtnPausa.setEnabled(false);
+        BtnRiprendi.setEnabled(false);
+        BtnFerma.setEnabled(false);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAvvia;
