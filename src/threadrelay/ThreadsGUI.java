@@ -34,6 +34,10 @@ public class ThreadsGUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
         initComponents();
+        CmbVelocita.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[]{"Lento", "Normale", "Veloce"}
+        ));
+        CmbVelocita.setSelectedIndex(1);
         jProgressBar1.setMaximum(100);
         jProgressBar2.setMaximum(100);
         jProgressBar3.setMaximum(100);
