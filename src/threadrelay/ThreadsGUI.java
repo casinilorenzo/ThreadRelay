@@ -270,6 +270,23 @@ public class ThreadsGUI extends javax.swing.JFrame {
         resetBottoni();
     }//GEN-LAST:event_BtnFermaActionPerformed
 
+    private void aggiornaGUI() {
+        boolean tuttiFiniti = true;
+        for (int i = 0; i < 4; i++) {
+            int val = contatori[i];
+            if (!c[i].isFinito()) tuttiFiniti = false;
+
+            if (c[i].isFinito()) {
+                infoLabel[i].setText("Runner " + (i+1) + " — Fine");
+            } else {
+                infoLabel[i].setText("Runner " + (i+1) + " — " + val);
+            }
+        }
+        if (tuttiFiniti) {
+            timer.stop();
+            resetBottoni();
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAvvia;
