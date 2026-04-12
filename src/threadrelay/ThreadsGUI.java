@@ -225,7 +225,6 @@ public class ThreadsGUI extends javax.swing.JFrame {
         }
         Timer timer = new Timer(30, e -> aggiornaGUI());
         timer.start();
-
         CmbVelocita.setEnabled(false);
         BtnAvvia.setEnabled(false);
         BtnPausa.setEnabled(true);
