@@ -27,6 +27,10 @@ public class ThreadsGUI extends javax.swing.JFrame {
      */
     public ThreadsGUI() {
         initComponents();
+        jProgressBar1.setMaximum(100);
+        jProgressBar2.setMaximum(100);
+        jProgressBar3.setMaximum(100);
+        jProgressBar4.setMaximum(100);
         for (javax.swing.JProgressBar bar : new javax.swing.JProgressBar[]{
             jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4}) {
             bar.setStringPainted(true);
