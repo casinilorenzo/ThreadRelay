@@ -70,6 +70,11 @@ public class ThreadsGUI extends javax.swing.JFrame {
         });
 
         BtnPausa.setText("Pausa");
+        BtnPausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPausaActionPerformed(evt);
+            }
+        });
 
         BtnRiprendi.setText("Riprendi");
 
@@ -230,6 +235,13 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnPausa.setEnabled(true);
         BtnFerma.setEnabled(true);
     }//GEN-LAST:event_BtnAvviaActionPerformed
+
+    private void BtnPausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPausaActionPerformed
+        // TODO add your handling code here:
+        monitor.sospendi();
+        BtnPausa.setEnabled(false);
+        BtnRiprendi.setEnabled(true);
+    }//GEN-LAST:event_BtnPausaActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
