@@ -77,6 +77,11 @@ public class ThreadsGUI extends javax.swing.JFrame {
         });
 
         BtnRiprendi.setText("Riprendi");
+        BtnRiprendi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRiprendiActionPerformed(evt);
+            }
+        });
 
         BtnFerma.setText("Ferma");
 
@@ -242,6 +247,15 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnPausa.setEnabled(false);
         BtnRiprendi.setEnabled(true);
     }//GEN-LAST:event_BtnPausaActionPerformed
+
+    private void BtnRiprendiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRiprendiActionPerformed
+        // TODO add your handling code here:
+        int ms = velocitaMs();
+        for (Corridori r : c) r.setVelocita(ms);
+        monitor.riprendi();
+        BtnRiprendi.setEnabled(false);
+        BtnPausa.setEnabled(true);
+    }//GEN-LAST:event_BtnRiprendiActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
