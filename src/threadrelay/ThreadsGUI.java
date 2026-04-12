@@ -26,6 +26,13 @@ public class ThreadsGUI extends javax.swing.JFrame {
      * Creates new form ThreadsGUI
      */
     public ThreadsGUI() {
+        try {
+            javax.swing.UIManager.setLookAndFeel(
+                    new javax.swing.plaf.metal.MetalLookAndFeel()
+            );
+        } catch (javax.swing.UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         initComponents();
         jProgressBar1.setMaximum(100);
         jProgressBar2.setMaximum(100);
