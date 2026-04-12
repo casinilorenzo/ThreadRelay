@@ -46,7 +46,6 @@ public class Corridori implements Runnable {
     @Override
     public void run() {
         try {
-            monitor.waitForTurn(id);
             for (int i = 0; i <= 99; i++) {
                 monitor.waitForTurn(id);
                 contatori[id - 1] = i;
