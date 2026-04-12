@@ -294,6 +294,13 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
     }
+    private int velocitaMs() {
+        return switch (CmbVelocita.getSelectedIndex()) {
+            case 0 -> SLOW;
+            case 2 -> FAST;
+            default -> REGULAR;
+        };
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAvvia;
