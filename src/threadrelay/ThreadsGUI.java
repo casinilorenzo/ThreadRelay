@@ -39,15 +39,15 @@ public class ThreadsGUI extends javax.swing.JFrame {
         ));
         CmbVelocita.setSelectedIndex(1);
         jProgressBar1.setMaximum(100);
-        jProgressBar2.setMaximum(100);
         jProgressBar3.setMaximum(100);
+        jProgressBar2.setMaximum(100);
         jProgressBar4.setMaximum(100);
         jProgressBar1.setForeground(new java.awt.Color(220, 50, 50));
-        jProgressBar2.setForeground(new java.awt.Color(50, 150, 220));
-        jProgressBar3.setForeground(new java.awt.Color(50, 200, 80));
+        jProgressBar3.setForeground(new java.awt.Color(50, 150, 220));
+        jProgressBar2.setForeground(new java.awt.Color(50, 200, 80));
         jProgressBar4.setForeground(new java.awt.Color(255, 165, 0));
         for (javax.swing.JProgressBar bar : new javax.swing.JProgressBar[]{
-            jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4}) {
+            jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4}) {
             bar.setStringPainted(true);
             bar.setFont(new java.awt.Font("Segoe UI Emoji", java.awt.Font.PLAIN, 20));
         }
@@ -73,8 +73,8 @@ public class ThreadsGUI extends javax.swing.JFrame {
         CmbVelocita = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
-        jProgressBar3 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
+        jProgressBar3 = new javax.swing.JProgressBar();
         jProgressBar4 = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -155,8 +155,8 @@ public class ThreadsGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jProgressBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
-                    .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jProgressBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -166,9 +166,9 @@ public class ThreadsGUI extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jProgressBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(9, Short.MAX_VALUE))
@@ -302,7 +302,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
 
     private void aggiornaGUI() {
         boolean tuttiFiniti = true;
-        javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
+        javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4};
         javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
 
         for (int i = 0; i < 4; i++) {
@@ -320,7 +320,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         }
     }
     private void resetGUI() {
-    javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
+    javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4};
     javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
     for (int i = 0; i < 4; i++) {
         contatori[i] = 0;
