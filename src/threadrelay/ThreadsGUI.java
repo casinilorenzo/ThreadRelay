@@ -287,7 +287,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         for (int i = 0; i < 4; i++) {
             int val = contatori[i];
             bars[i].setValue(val);
-            bars[i].setString("?🏃🏼" + val + "%");
+            bars[i].setString("🏃" + val + "%");
             labels[i].setText(String.valueOf(val));
             if (!c[i].isFinito()) {
                 tuttiFiniti = false;
