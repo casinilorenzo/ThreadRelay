@@ -320,3 +320,4 @@ public class ThreadsGUI extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar3;
     private javax.swing.JProgressBar jProgressBar4;
     // End of variables declaration//GEN-END:variables
+}
