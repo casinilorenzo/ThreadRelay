@@ -315,7 +315,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         for (int i = 0; i < 4; i++) {
             int val = contatori[i];
             bars[i].setValue(val);
-            bars[i].setString("🏃" + val + "%");
+            bars[i].setString("🏃");
             labels[i].setText(String.valueOf(val));
             if (!c[i].isFinito()) {
                 tuttiFiniti = false;
@@ -332,7 +332,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
     for (int i = 0; i < 4; i++) {
         contatori[i] = 0;
         bars[i].setValue(0);
-        bars[i].setString("🏃 0%");
+        bars[i].setString("🏃");
         labels[i].setText("0");
     }
 }
