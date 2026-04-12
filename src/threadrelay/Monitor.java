@@ -22,7 +22,19 @@ public class Monitor {
             wait();
         }
     }
-    
+
+    public synchronized void checkPaused() throws InterruptedException {
+        while (paused) {
+            if (stopped) {
+                throw new InterruptedException("Fermato");
+            }
+            wait();
+        }
+        if (stopped) {
+            throw new InterruptedException("Fermato");
+        }
+    }
+
     public synchronized void sospendi() {
         paused = true;
     }
@@ -34,13 +46,13 @@ public class Monitor {
 
     public synchronized void ferma() {
         stopped = true;
-        notifyAll();  
+        notifyAll();
     }
 
     public synchronized boolean isStopped() {
         return stopped;
     }
-    
+
     public synchronized void passaTestimone(int nextId) {
         currentRunner = nextId;
         notifyAll();
