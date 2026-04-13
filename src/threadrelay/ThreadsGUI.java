@@ -38,41 +38,41 @@ public class ThreadsGUI extends javax.swing.JFrame {
                 new String[]{"Lento", "Normale", "Veloce"}
         ));
         CmbVelocita.setSelectedIndex(1);
-        jProgressBar1 = creaBarraConEmoji(new java.awt.Color(220, 50, 50));
-        jProgressBar2 = creaBarraConEmoji(new java.awt.Color(50, 150, 220));
-        jProgressBar3 = creaBarraConEmoji(new java.awt.Color(50, 200, 80));
-        jProgressBar4 = creaBarraConEmoji(new java.awt.Color(255, 165, 0));
-        jPanel2.add(jProgressBar1);
-        jPanel2.add(jProgressBar2);
-        jPanel2.add(jProgressBar3);
-        jPanel2.add(jProgressBar4);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        applicaStileConEmoji(jProgressBar1, new java.awt.Color(220, 50, 50));
+        applicaStileConEmoji(jProgressBar2, new java.awt.Color(50, 150, 220));
+        applicaStileConEmoji(jProgressBar3, new java.awt.Color(50, 200, 80));
+        applicaStileConEmoji(jProgressBar4, new java.awt.Color(255, 165, 0));
         BtnPausa.setEnabled(false);
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
     }
 
-    private javax.swing.JProgressBar creaBarraConEmoji(java.awt.Color colore) {
-        javax.swing.JProgressBar bar = new javax.swing.JProgressBar(0, 100) {
+    private void applicaStileConEmoji(javax.swing.JProgressBar bar, java.awt.Color colore) {
+        bar.setForeground(colore);
+        bar.setStringPainted(false);
+        bar.setBorderPainted(false);
+        bar.setMaximum(100);
+        bar.setUI(new javax.swing.plaf.basic.BasicProgressBarUI() {
             @Override
-            protected void paintComponent(java.awt.Graphics g) {
+            public void paint(java.awt.Graphics g, javax.swing.JComponent c) {
                 java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
                 g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
-                int w = getWidth();
-                int h = getHeight();
-                int val = getValue();
-                int max = getMaximum();
+                int w = c.getWidth();
+                int h = c.getHeight();
+                int val = bar.getValue();
+                int max = bar.getMaximum();
                 g2.setColor(new java.awt.Color(220, 220, 220));
                 g2.fillRoundRect(0, 0, w, h, 10, 10);
-                int fillW = (int) ((w) * (val / (double) max));
-                g2.setColor(getForeground());
-                g2.fillRoundRect(0, 0, fillW, h, 10, 10);
+                int fillW = (int) (w * (val / (double) max));
+                if (fillW > 0) {
+                    g2.setColor(colore);
+                    g2.fillRoundRect(0, 0, fillW, h, 10, 10);
+                }
                 g2.setColor(java.awt.Color.BLACK);
                 g2.setStroke(new java.awt.BasicStroke(2));
                 g2.drawRoundRect(1, 1, w - 2, h - 2, 10, 10);
                 if (fillW > 10) {
-                    int size = h/3;
+                    int size = h / 3;
                     g2.setFont(new java.awt.Font("Segoe UI Emoji", java.awt.Font.PLAIN, size));
                     java.awt.FontMetrics fm = g2.getFontMetrics();
                     String emoji = "🏃";
@@ -83,18 +83,12 @@ public class ThreadsGUI extends javax.swing.JFrame {
                         x = 2;
                     }
                     int y = (h + eh) / 2 - fm.getDescent();
-
                     g2.drawString(emoji, x, y);
                 }
 
                 g2.dispose();
             }
-        };
-        bar.setForeground(colore);
-        bar.setStringPainted(false);
-        bar.setMaximum(100);
-        bar.setBorderPainted(false);
-        return bar;
+        });
     }
 
     /**
