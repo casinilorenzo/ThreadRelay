@@ -38,22 +38,57 @@ public class ThreadsGUI extends javax.swing.JFrame {
                 new String[]{"Lento", "Normale", "Veloce"}
         ));
         CmbVelocita.setSelectedIndex(1);
-        jProgressBar1.setMaximum(100);
-        jProgressBar2.setMaximum(100);
-        jProgressBar3.setMaximum(100);
-        jProgressBar4.setMaximum(100);
-        jProgressBar1.setForeground(new java.awt.Color(220, 50, 50));
-        jProgressBar2.setForeground(new java.awt.Color(50, 150, 220));
-        jProgressBar3.setForeground(new java.awt.Color(50, 200, 80));
-        jProgressBar4.setForeground(new java.awt.Color(255, 165, 0));
-        for (javax.swing.JProgressBar bar : new javax.swing.JProgressBar[]{
-            jProgressBar1, jProgressBar3, jProgressBar2, jProgressBar4}) {
-            bar.setStringPainted(true);
-            bar.setFont(new java.awt.Font("Segoe UI Emoji", java.awt.Font.PLAIN, 20));
-        }
+        applicaStileConEmoji(jProgressBar1, new java.awt.Color(220, 50, 50));
+        applicaStileConEmoji(jProgressBar2, new java.awt.Color(50, 150, 220));
+        applicaStileConEmoji(jProgressBar3, new java.awt.Color(50, 200, 80));
+        applicaStileConEmoji(jProgressBar4, new java.awt.Color(255, 165, 0));
         BtnPausa.setEnabled(false);
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
+    }
+
+    private void applicaStileConEmoji(javax.swing.JProgressBar bar, java.awt.Color colore) {
+        bar.setForeground(colore);
+        bar.setStringPainted(false);
+        bar.setBorderPainted(false);
+        bar.setMaximum(100);
+        bar.setUI(new javax.swing.plaf.basic.BasicProgressBarUI() {
+            @Override
+            public void paint(java.awt.Graphics g, javax.swing.JComponent c) {
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                int w = c.getWidth();
+                int h = c.getHeight();
+                int val = bar.getValue();
+                int max = bar.getMaximum();
+                g2.setColor(new java.awt.Color(220, 220, 220));
+                g2.fillRoundRect(0, 0, w, h, 10, 10);
+                int fillW = (int) (w * (val / (double) max));
+                if (fillW > 0) {
+                    g2.setColor(colore);
+                    g2.fillRoundRect(0, 0, fillW, h, 10, 10);
+                }
+                g2.setColor(java.awt.Color.BLACK);
+                g2.setStroke(new java.awt.BasicStroke(2));
+                g2.drawRoundRect(1, 1, w - 2, h - 2, 10, 10);
+                if (fillW > 10) {
+                    int size = h / 3;
+                    g2.setFont(new java.awt.Font("Segoe UI Emoji", java.awt.Font.PLAIN, size));
+                    java.awt.FontMetrics fm = g2.getFontMetrics();
+                    String emoji = "🏃";
+                    int ew = fm.stringWidth(emoji);
+                    int eh = fm.getAscent();
+                    int x = fillW - ew - 2;
+                    if (x < 2) {
+                        x = 2;
+                    }
+                    int y = (h + eh) / 2 - fm.getDescent();
+                    g2.drawString(emoji, x, y);
+                }
+
+                g2.dispose();
+            }
+        });
     }
 
     /**
@@ -263,15 +298,15 @@ public class ThreadsGUI extends javax.swing.JFrame {
             threads[i] = new Thread(c[i], "Runner-" + (i + 1));
         }
         new Thread(() -> {
-        try {
-            for (int i = 0; i < 4; i++) {
-                threads[i].start();
-                Thread.sleep(200);
+            try {
+                for (int i = 0; i < 4; i++) {
+                    threads[i].start();
+                    Thread.sleep(200);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }).start();
+        }).start();
         timer.start();
         CmbVelocita.setEnabled(false);
         BtnAvvia.setEnabled(false);
@@ -303,7 +338,6 @@ public class ThreadsGUI extends javax.swing.JFrame {
         if (timer != null) {
             timer.stop();
         }
-        resetGUI();
         resetBottoni();
     }//GEN-LAST:event_BtnFermaActionPerformed
 
@@ -315,7 +349,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         for (int i = 0; i < 4; i++) {
             int val = contatori[i];
             bars[i].setValue(val);
-            bars[i].setString("🏃");
+            bars[i].repaint();
             labels[i].setText(String.valueOf(val));
             if (!c[i].isFinito()) {
                 tuttiFiniti = false;
@@ -326,16 +360,18 @@ public class ThreadsGUI extends javax.swing.JFrame {
             resetBottoni();
         }
     }
+
     private void resetGUI() {
-    javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
-    javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
-    for (int i = 0; i < 4; i++) {
-        contatori[i] = 0;
-        bars[i].setValue(0);
-        bars[i].setString("🏃");
-        labels[i].setText("0");
+        javax.swing.JProgressBar[] bars = {jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4};
+        javax.swing.JLabel[] labels = {LblContatore1, LblContatore2, LblContatore3, LblContatore4};
+        for (int i = 0; i < 4; i++) {
+            contatori[i] = 0;
+            bars[i].setValue(0);
+            bars[i].setString("🏃");
+            labels[i].setText("0");
+        }
     }
-}
+
     private void resetBottoni() {
         CmbVelocita.setEnabled(true);
         BtnAvvia.setEnabled(true);
