@@ -11,7 +11,7 @@ package threadrelay;
 public interface Observer {
     /**
      * Chiamato dal Subject quando il suo stato cambia.
-     * @param valore il nuovo valore dello stato
+     * @param contatori il nuovo valore dello stato
      */
-    void update(int valore);
+    void update(int[] contatori);
 }
