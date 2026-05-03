@@ -10,7 +10,7 @@ import javax.swing.Timer;
  *
  * @author loren
  */
-public class ThreadsGUI extends javax.swing.JFrame {
+public class ThreadsGUI extends javax.swing.JFrame implements Observer {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ThreadsGUI.class.getName());
     private static final int SLOW = 80;
@@ -45,7 +45,19 @@ public class ThreadsGUI extends javax.swing.JFrame {
         BtnPausa.setEnabled(false);
         BtnRiprendi.setEnabled(false);
         BtnFerma.setEnabled(false);
+
     }
+
+    @Override
+    public void update(int[] contatori) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            jProgressBar1.setValue(contatori[0]);
+            jProgressBar2.setValue(contatori[1]);
+            jProgressBar3.setValue(contatori[2]);
+            jProgressBar4.setValue(contatori[3]);
+        });
+    }
+    
 
     private void applicaStileConEmoji(javax.swing.JProgressBar bar, java.awt.Color colore) {
         bar.setForeground(colore);
@@ -56,7 +68,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
             @Override
             public void paint(java.awt.Graphics g, javax.swing.JComponent c) {
                 java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
-                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
                 int w = c.getWidth();
                 int h = c.getHeight();
                 int val = bar.getValue();
@@ -293,6 +305,7 @@ public class ThreadsGUI extends javax.swing.JFrame {
         resetGUI();
         int ms = velocitaMs();
         monitor = new Monitor();
+        monitor.addObserver(this);
         for (int i = 0; i < 4; i++) {
             c[i] = new Corridori(i + 1, monitor, contatori, ms);
             threads[i] = new Thread(c[i], "Runner-" + (i + 1));
